@@ -1,0 +1,240 @@
+	//1.写 缓动方法 参数是 要移动的对象   和 移动的目的地
+			//2.使用定时器 每30 毫秒移动一次, 移动的步距 越来越小
+			//3.步距为 盒子与目的地  间距的 1/10
+			//4.让 步距 二次处理 上下取整(多走一点)  步距大于 零的时候上取整 0.3  变成1 小于0 时-0.3  变成-1 下取整
+			//5.让盒子的定位发生移动  等于 和盒子现有的定位距离   
+			//6 当 盒子与于 目的地的间隙 小于 步距的绝对值时  ,就让盒子直接到达目的地  清除定时器
+
+			//1.写 缓动方法 参数是 要移动的对象   和 移动的目的地(优化传递想要控制的属性)
+			//参数移动对象.想要控制的属性 ,移动距离
+
+			//优化
+			function huandong(ele, json, fn) {
+
+				//一进来清除以前的定时器
+				clearInterval(ele.timer)
+				//2.使用定时器 每30 毫秒移动一次, 移动的步距 越来越小
+				ele.timer = setInterval(function() {
+
+					var bool = true;
+
+					//3.步距为 盒子与目的地  间距的 1/10
+					//属性  不确定的 使用获取通用属性  值的方法 
+
+					for(var k in json) {
+
+						var index; //标记 对颜色值数组中的第几个 进行添加
+
+						var leader;
+
+						var arr_color; //当前的颜色  值数组
+
+						var arr_color2; //目的颜色样式数组值
+						if(k == "opacity") {
+							//透明度 :getStyle(ele,k) 取出来的 是0-1 的数字
+							leader = getStyle(ele, k) * 100 || 1;
+						} else if(k == "color" || "backgroundColor" == k) {
+							//理论上获取到的是 rgb(0,10,100)
+							leader = getStyle(ele, k) || "rgb(0,0,0)";
+							//取颜色的第一个数字
+							//这里利用自带循环的方式 
+							//1.先判断以第一个是否到 目标值了 没有到就给第一值添加数字
+							//2.判断第二个是否到达目标值  没有打目标值 就给地二个添加目标数字
+							//3. 第三个同样时
+
+							//获取现有的样式
+							arr_color = getcolornum(leader);
+							// 目的地样式
+							arr_color2 = getcolornum(json[k]);
+
+							if(arr_color[0] != arr_color2[0]) {
+
+								leader = Number(arr_color[0])
+
+								index = 0;
+
+							} else if(arr_color[1] != arr_color2[1]) {
+
+								leader = Number(arr_color[1])
+								index = 1;
+
+							} else if(arr_color[2] != arr_color2[2]) {
+
+								leader = Number(arr_color[2])
+								index = 2;
+							} else {
+								leader = Number(arr_color2[2])
+								index = 2;
+							}
+
+						} else {
+							leader = parseInt(getStyle(ele, k)) || 0; //没有这个属性的时候就是0   把位置取整了 这是一个 bug
+						}
+
+						//					var step = (target - ele.offsetLeft) / 10;
+						//10 分之一 固定34次到目的地, 多属性的时候 一定是前面的属性先到目的地,后面的属性最后到目的
+
+						var step;
+
+						if(k == "color" || "backgroundColor" == k) {
+
+							step = (getcolornum(json[k])[index] - leader) / 10;
+
+						} else {
+							step = (json[k] - leader) / 10;
+
+						}
+
+						//4.让 步距 二次处理 上下取整(多走一点)  步距大于 零的时候上取整 0.3  变成1 小于0 时-0.3  变成-1 下取整
+						step = step > 0 ? Math.ceil(step) : Math.floor(step);
+						//5.让盒子的定位发生移动  等于 和盒子现有的定位距离   
+						var sum;
+						if(k == "opacity") {
+							////现在的透明度 加上步长
+							sum = leader + step;
+							ele.style[k] = sum / 100;
+
+							ele.style.filter = "alpha(opacity=" + sum + ")";
+
+						} else if(k === "zIndex") {
+							//如果是层级，一次行赋值成功，不需要缓动赋值
+							//为什么？需求！
+							ele.style[k] = json[k];
+						} else if(k == "color" || "backgroundColor" == k) {
+							sum = leader + step;
+							//根据index 判断 颜色  拼接的位置
+							//
+
+							if(index == 0) {
+								arr_color[0] = sum;
+
+							} else if(index == 1) {
+								arr_color[1] = sum;
+
+							} else if(index == 2) {
+								arr_color[2] = sum;
+							}
+
+							ele.style[k] = "rgb(" + arr_color[0] + ',' + arr_color[1] + ',' + arr_color[2] + ')';
+
+						} else {
+							ele.style[k] = leader + step + 'px';
+						}
+
+						//6 当 盒子与于 目的地的间隙 小于等于 步距的绝对值时  ,就让盒子直接到达目的地  清除定时器
+						//由于是多属性  只要有一个属性没有 到目的地(或者步长没有大于等于到目的地的间隙的时候) 就不能清除定时器
+						//要等待所有的属性 都到达目的地的时候  遍历完了 才清除定期
+						//关闭定时器的时机  就是当 所有 的属性    离目的地的间隙要小于步长时  就直接到达目的地
+
+						if(k == "opacity") {
+
+							if(Math.abs((json[k] - sum)) <= Math.abs(step)) {
+
+								//离目的地的间隙要小于步长时  就直接到达目的地
+
+								ele.style[k] = json[k] / 100;
+								ele.style.filter = "alpha(opacity=" + json[k] + ")";
+
+							} else { //只要有一个 属性 步长没有大于等于到目的地的间隙的时候就不关闭定时器
+
+								// 
+								bool = false;
+
+							}
+
+						} else if(k == "color" || "backgroundColor" == k) {
+
+							if(Math.abs((arr_color2[index] - sum)) <= Math.abs(step)) {
+								//										ele.style.backgroundColor
+								//离目的地的间隙要小于步长时  就直接到达目的地
+								if(index == 0) {
+									ele.style[k] = "rgb(" + arr_color2[0] + ',' + arr_color[1] + ',' + arr_color[2] + ')';
+									//颜色的时候 关闭定时器的时机   所有的 所有的颜色值都到 目的值了 才关闭定时器  bool 初始的默认值为true
+									//只控制设定 false 不要设定true   bool = true 会导致定制器关闭  颜色属性虽然  到目的值了 但是 其他属性 没有到目的值
+									bool = false;
+								} else if(index == 1) {
+									ele.style[k] = "rgb(" + arr_color[0] + ',' + arr_color2[1] + ',' + arr_color[2] + ')';
+									//颜色的时候 关闭定时器的时机   所有的 所有的颜色值都到 目的值了 才关闭定时器 bool 初始的默认值为true
+									//只控制设定 false 不要设定true   bool = true 会导致定制器关闭  颜色属性虽然  到目的值了 但是 其他属性 没有到目的值
+									bool = false;
+								} else if(index == 2) {
+									ele.style[k] = "rgb(" + arr_color[0] + ',' + arr_color[1] + ',' + arr_color2[2] + ')';
+									//只控制设定 false 不要设定true   bool = true 会导致定制器关闭  颜色属性虽然  到目的值了 但是 其他属性 没有到目的值
+									//									bool = true;
+								}
+
+							} else { //只要有一个 属性 步长没有大于等于到目的地的间隙的时候就不关闭定时器
+
+								//颜色的时候 关闭定时器的时机   所有的 所有的颜色值都到 目的值了 才关闭定时器
+
+								//								arr_color2  目的颜色 数组
+								//重新获取当前叠加后的颜色
+
+								var leader_last = getStyle(ele, k) || "rgb(0,0,0)";
+								// 当前颜色的数组值
+								var arr_color_last = getcolornum(leader_last);
+								//									debugger;
+								//当颜色的值 全部到达目的颜色时  falg 为ture
+								var falg = arr_color2[0] == arr_color_last[0] && arr_color2[1] == arr_color_last[1] && arr_color2[2] == arr_color_last[2];
+
+								if(!falg) {
+									//只控制设定 false 不要设定true   bool = true 会导致定制器关闭  颜色属性虽然  到目的值了 但是 其他属性 没有到目的值
+									bool = false;
+								}
+
+							}
+
+						} else {
+
+							if(Math.abs((json[k] - parseInt(getStyle(ele, k)))) <= Math.abs(step)) {
+
+								//离目的地的间隙要小于步长时  就直接到达目的地
+
+								ele.style[k] = json[k] + "px";
+
+							} else { //只要有一个 属性 步长没有大于等于到目的地的间隙的时候就不关闭定时器
+								bool = false;
+							}
+
+						}
+
+					}
+
+					console.log("监测循环的次数:1111")
+					//for循环外
+					if(bool) {
+
+						clearInterval(ele.timer)
+						//添加回调函数
+						if(fn) { //typeof fn =="function"
+
+							fn();
+						}
+
+					}
+
+				}, 30);
+
+			}
+
+			//兼容方法获取元素样式属性   返回的是属性对应的字符串值 带px deng 
+			function getStyle(ele, attr) {
+				if(window.getComputedStyle) {
+					return window.getComputedStyle(ele, null)[attr];
+				}
+				return ele.currentStyle[attr];
+			}
+
+			//颜色分离 rgb(0,10,100); 获取她里面的数字
+			function getcolornum(ac) {
+				//		var ce="rgb(0,10,100)";
+				var arr = ac.split(/[^0-9]/ig);
+				var arr2 = [];
+				for(var i = 0; i < arr.length; i++) {
+					if(arr[i] !== "") {
+						arr2.push(arr[i])
+					}
+				}
+				console.log(arr2);
+				return arr2
+			}

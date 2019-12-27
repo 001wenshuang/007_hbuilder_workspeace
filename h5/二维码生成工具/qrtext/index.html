@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<head>
+
+		<title>二维码生成工具</title>
+	</head>
+	<style type="text/css">
+		input {
+			width: 100%;
+			height: 32px;
+			font-size: 14px;
+			border: none;
+			background-color: greenyellow;
+			margin-bottom: 20px;
+			margin-top: 20px;
+		}
+		
+		.ma {
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+		}
+		
+		.wei {
+			text-align: center;
+			font-weight: bold;
+		}
+		
+		.wei02 {
+			text-align: center;
+			color: #2E2E2E;
+			font-size: 12px;
+			font-weight: 700;
+		}
+		
+		.red {
+			color: red;
+		}
+		
+		.bgbuy {
+			width: auto;
+			height: auto;
+		}
+		
+		img {
+			display: block;
+			width: 300px;
+			height: 197.2px;
+			margin: 0 auto;
+		}
+		
+		.etfg {
+			width: 150px;
+			height: 32px;
+			border: none;
+			border-radius: 4px;
+			display: block;
+			text-align: center;
+			color: #FFFFFF;
+			font-size: 16px;
+			font-weight: 900;
+			line-height: 32px;
+			cursor: pointer;
+			background: linear-gradient(to right, #55b4f5 0%, #5a83ec 100%);
+			font-family: PingFangSC-Regular, PingFangHK-Regular, sans-serif;
+			margin: 0 auto;
+			margin-top: 20px;
+		}
+	</style>
+
+	<body style="background-color: #FFFFFF;">
+
+
+		<script src="js/jquery-3.2.1.min.js"></script>
+
+		<script type="text/javascript" src="js/jquery.qrcode.min.js"></script>
+		<!--<script type="text/javascript" src="js/qrcode.js"></script>-->
+
+		<div id="df">
+
+			<p class="wei">二维码生成工具</p>
+			<p class=" wei02">建议使用浏览器或微信扫描
+			</p>
+			<input type="text" placeholder="请输入网址www.xx.com(支持中文)" id="fill_infomation_date_start1">
+			<input type="button" id="df01" value="点击生成二维码(网址)" onclick="qrcode_out1()" style="background-color: aquamarine;width: 160px;margin: 0 auto;    display: block;margin-bottom: 20px;" />
+			<input type="button" id="df02" value="点击生成二维码(扫描跳转)" onclick="qrcode_out2()" style="background-color: #008A25;width: 200px;margin: 0 auto;    display: block;margin-bottom: 20px;" />
+
+			<p class="wei" id="innern"></p>
+
+			<div id="qrcodeCanvas01" class="ma"></div>
+			
+			<div class="etfg dian">
+				点击这里有惊喜
+			</div>
+
+			<div class="cctv">
+				<p class="wei red">常怀感恩,谢谢打赏</p>
+
+				<div class="bgbuy">
+					<!--<p class="wei red" >欢迎打赏</p>-->
+					<img src="img/buy02.png" />
+
+				</div>
+			</div>
+
+		</div>
+
+		<p class="wei" style="color: #8FA4B3;">独家经营,版权所有,盗版必究</p>
+		<p class="wei" style="color: #bfc3c5;font-size: 12px;" friend="本人单身狗,找女票">欢迎大家技术交流,微信<span style="color: #000000;">861986908</span></p>
+		<script>
+			function utf16to8(str) {
+				var out, i, len, c;
+				out = "";
+				len = str.length;
+				for(i = 0; i < len; i++) {
+					c = str.charCodeAt(i);
+					if((c >= 0x0001) && (c <= 0x007F)) {
+						out += str.charAt(i);
+					} else if(c > 0x07FF) {
+						out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+						out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+						out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+					} else {
+						out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+						out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+					}
+				}
+				return out;
+			};
+				$(".cctv").toggle(false);
+			$(".dian").click(function() {
+				$(".cctv").toggle();
+			})
+			
+
+
+
+			
+
+			$("#qrcodeCanvas01").qrcode({
+				render: "canvas", // 渲染方式有table方式（IE兼容）和canvas方式
+				width: 150, //宽度
+				height: 150, //高度
+				text: utf16to8("欢迎加微信86198608"), //内容
+				typeNumber: -1, //计算模式
+				correctLevel: 2, //二维码纠错级别
+				ecLevel: "H", //容错级别
+				background: "#ffffff", //背景颜色
+				foreground: "#000000" //二维码颜色
+			});
+
+			function qrcode_out1() {
+				$("canvas").hide();
+				var wangzhi = $('#fill_infomation_date_start1').val()
+				if(wangzhi == '') {
+					alert("您还没有输入网址")
+				} else {
+
+					$("#qrcodeCanvas01").qrcode({
+						render: "canvas", // 渲染方式有table方式（IE兼容）和canvas方式
+						width: 150, //宽度
+						height: 150, //高度
+						text: utf16to8(wangzhi), //内容
+						typeNumber: -1, //计算模式
+						correctLevel: 2, //二维码纠错级别
+						ecLevel: "H", //容错级别
+						background: "#ffffff", //背景颜色
+						foreground: "#000000" //二维码颜色
+					});
+
+					$("#innern").html("扫描获得网址")
+				}
+			}
+
+			function qrcode_out2() {
+				$("canvas").hide();
+				var wangzhi = $('#fill_infomation_date_start1').val()
+				if(wangzhi == '') {
+					alert("您还没有输入网址")
+				} else {
+					wangzhi = "http://" + wangzhi;
+
+					$("#qrcodeCanvas01").qrcode({
+						render: "canvas", // 渲染方式有table方式（IE兼容）和canvas方式
+						width: 150, //宽度
+						height: 150, //高度
+						text: utf16to8(wangzhi), //内容
+						typeNumber: -1, //计算模式
+						correctLevel: 2, //二维码纠错级别
+						ecLevel: "H", //容错级别
+						background: "#ffffff", //背景颜色
+						foreground: "#922fff" //二维码颜色
+					});
+					$("#innern").html("扫描跳转到该网址")
+				}
+			}
+
+			//			$("#qrcodeCanvas01").qrcode({
+			//				render: "canvas", // 渲染方式有table方式（IE兼容）和canvas方式
+			//				width: 260, //宽度
+			//				height: 260, //高度
+			//				text: "www.baidu.com", //内容
+			//				typeNumber: -1, //计算模式
+			//				correctLevel: 2, //二维码纠错级别
+			//				ecLevel: "H", //容错级别
+			//				background: "#ffffff", //背景颜色
+			//				foreground: "#000000" //二维码颜色
+			//			});
+
+			$("canvas").css("width", "150px");
+			$("canvas").css("height", "150px");
+		</script>
+
+	</body>
+
+</html>

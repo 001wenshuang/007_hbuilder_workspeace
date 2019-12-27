@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div class="parent">
+			<p class="son">会议认为，党的十八大以来，我国经济发展取得历史性成就、 发生历史性变革，为其他领域改革发展提供了重要物质条件。经济实力 再上新台阶，经济年均增长7.1%，成为世界经济增长的主要动力源和稳定器。
+			</p>
+		</div>
+		<!--（1）display: table时padding会失效
+（2）display: table-row时margin、padding同时失效
+（3）display: table-cell时margin会失效-->
+
+		<q>Some quotes,</q> he said, <q>are better than none.</q>
+
+		<style type="text/css">
+			.parent {
+				display: table;
+				width: 300px;
+				height: 300px;
+				text-align: center;
+			}
+			
+			.son {
+				display: table-cell;
+				height: 200px;
+				background-color: yellow;
+			}
+			
+			q::before {
+				content: "«";
+				color: blue;
+			}
+			
+			q::after {
+				content: "»";
+				color: red;
+			}
+		</style>
+	</body>
+
+</html>

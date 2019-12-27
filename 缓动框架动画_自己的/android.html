@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		input{
+			height: 50px;
+			width: 100%;
+			font-size: 24px;
+			background-color: aquamarine;
+		}
+	</style>
+	<body>
+		
+		<input type="button" value="点击Android被调用" οnclick="window.Android.H5Payment(String uid, String money, String cpid, String orderNum')"/>
+	</body>
+	<script type="text/javascript">
+		 function getVersion(){
+        var text = '不在网游SDK环境内，找不到方法';
+        if(window.android && window.android.getVersion){
+            text = window.android.getVersion();
+        }
+  return text;
+    }
+		 
+		 function tan () {
+		 	alert('55154')
+		 }
+	</script>
+</html>

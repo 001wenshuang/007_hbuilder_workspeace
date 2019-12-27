@@ -1,0 +1,390 @@
+@import "font.css";
+@import "skybase.css";
+@charset "utf-8";
+/* CSS Document */
+html{
+    font-family:PingFangSC-Regular,PingFangHK-Regular, sans-serif;
+	  font-size:37.5px;
+
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+body{
+    font-size:42.6668%;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+         -o-user-select: none;
+    -webkit-text-size-adjust: none;
+       -moz-text-size-adjust: none;
+         -o-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+    -webkit-user-drag: none;
+    font-family:PingFangSC-Regular,PingFangHK-Regular, sans-serif;
+    margin: 0;
+    color:#383838;
+    background-color: #f8f8f8;
+    -webkit-overflow-scrolling: touch;
+}
+*{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{
+    display: block;
+}
+audio,canvas,progress,video{
+    display: inline-block;
+    vertical-align: baseline;
+}
+audio:not([controls])
+{
+    display: none;
+
+    height: 0;
+}
+[hidden],
+template{
+    display: none;
+}
+a{
+    color:#0074e1;  
+}
+a,a:active,a:hover{
+    outline: 0;
+    text-decoration: none;
+
+}
+abbr[title]{
+    border-bottom: 1px dotted;
+}
+h1{
+    font-size: 2em;
+    margin: .67em 0;
+}
+mark{
+    color: #000;
+    background: #ff0;
+}
+small{
+    font-size: 80%;
+}
+sub,sup{
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+sup{
+    top: -.4em;
+}
+sub{
+    bottom: -.25em;
+}
+img{
+    border: 0;
+     width:100%; height:100%;
+}
+svg:not(:root)
+{
+    overflow: hidden;
+}
+figure{
+    margin: 1em 1.066666666666667rem;
+}
+hr{
+    box-sizing: content-box;
+    height: 0;
+}
+pre{
+    overflow: auto;
+}
+
+code,kbd,pre,samp
+{
+    font-family: monospace, monospace;
+    font-size: 1em;
+}
+button,select
+{
+    text-transform: none;
+}
+button,html input[type='button'],input[type='reset'],input[type='submit']
+{
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+button[disabled],html input[disabled]
+{
+    cursor: default;
+}
+input{
+    line-height: normal;
+	outline:none;
+    border:0;
+      -webkit-appearance: none;
+       -moz-appearance: none;
+         -o-appearance: none;
+        -ms-appearance: none;
+}
+input:focus{ 
+    outline:none;
+}
+input[type='checkbox'],input[type='radio']
+{
+    box-sizing: border-box;
+    padding: 0;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button
+{
+    height: auto;
+}
+
+input[type='number']
+{
+	color: #383838;
+}
+input[type='search']
+{
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+    -webkit-appearance: textfield;
+	color: #383838;
+}
+
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration
+{
+    -webkit-appearance: none;
+}
+fieldset
+{
+    margin: 0 2px;
+    padding: .35em .625em .75em;
+
+    border: 1px solid #c0c0c0;
+}
+legend
+{
+    padding: 0;
+    border: 0;
+}
+textarea
+{
+    overflow: auto;
+}
+optgroup
+{
+    font-weight: bold;
+}
+
+input[type='text'],
+input[type='password']
+{
+    color: #383838;
+    background-color: #fff;
+
+}
+
+input[type=date]
+{
+    font-size:0.426666666667rem;
+    color: #929292;
+    height: 0.64rem;
+    border:1px solid #eee;
+    background-color: #f8f8f8;
+    width:3.2rem;
+    text-align: right;
+}
+input:disabled
+{
+    color: #9a9a9a !important;
+}
+::-webkit-input-placeholder
+{
+    font-size:.4266666666666667rem;
+    color: #929292;
+}
+input.placeholderfont14px:-moz-placeholder{ font-size:0.373333333333rem !important; }
+input.placeholderfont14px::-webkit-input-placeholder{ font-size:0.373333333333rem !important; }
+input.placeholderfont14px:ms-input-placeholder{ font-size:0.373333333333rem !important; }
+/*2017-12-18 - sky; placehold文字居右，focus居左*/
+input.input_pr_fl:focus::-webkit-input-placeholder{ text-align:right !important}
+input.input_pr_fl:focus{ text-align:left !important}
+iframe{
+    padding: 0;
+    width: 100%;
+    height:auto;
+    border: 0;
+    overflow: auto;
+}
+table
+{
+    border-spacing: 0;
+}
+*{
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*内容*/
+    .contentWrap{width:100%; background-color:#fff;padding:0px .4rem;}
+/*弹出框开始*/
+	#bgDiv,.bgDivUpdate{
+		 width: 100%;height:100%;z-index: 2998;position:fixed;  background: rgba(0,0,0,.5);top:0px; left:0px;
+	}
+	.popdiv{overflow: hidden;position:fixed; display:none;background-color: #ffffff; z-index:2999; margin:0 4%; border-radius: 0.1333333333333333rem; width:92% !important;padding:0;
+	}
+    /* .popdiv_wrapinner{overflow: hidden; margin:0 0.4rem;background-color: #ffffff; border-radius: 0.1333333333333333rem; } */
+	.popdiv .warnMsg{
+		border-bottom: 1px solid #eeeeee;
+		text-align: center;
+        height: 1.2rem;
+    	padding:0.293333333333rem .4rem;
+    	vertical-align:middle;
+        font-size:.4266666666666667rem;
+        color: #383838;
+        line-height: 0.56rem;
+	}
+	.popdiv .warnMsg span{
+    	line-height: 1.2rem;
+        position: absolute;
+        right: .4rem;
+        color: #929292;
+        font-size:0.586666666667rem;
+	}
+	.popdiv .content{
+        padding:0 .4rem;
+        margin:.4rem 0;
+        color: #565656;
+        word-wrap: break-word;
+        overflow: auto;
+        max-height:6.453333333333rem;
+        min-height:2.133333333333rem;
+        line-height: 0.5866666666666667rem;
+    	vertical-align:middle;
+    	height:100%;
+    	/*display:table;*/
+    	width:100%;
+		font-size:.3733333333333333rem;
+    }
+
+	.popdiv .doBtn {
+    width: 100%;
+    height: auto;
+    padding: 0px .4rem .4rem .4rem;
+    position: relative;
+    text-align: center;
+    margin-top: 0.4rem;
+}
+
+	.popdiv .doBtn a {
+    background-color: #0074e1;
+    width: 4rem;
+   	height: 1.066666666666667rem;
+    line-height: 1.066666666666667rem;
+    color: #444;
+    font-size:.4266666666666667rem;
+    border: 0;
+    padding: 0;
+    border-radius: 0.1066666666666667rem;
+    display: inline-block;
+    text-align: center;
+}
+	.popdiv .doBtn  a.cancel {
+	color: #5995EF;
+    border:1px solid #5995EF;
+    background: #ffffff;
+    margin-left: 0.4rem;
+	}
+	.popdiv .doBtn a.ok {
+    color: #ffffff;
+    background: linear-gradient(to right,#55b4f5 0%,#5a83ec 100%);
+}
+
+.warnMsg.btn_rightClose:after {
+    content: "";
+    position: absolute;
+    right: 0.2666666666666667rem;
+    top: .5066666666666667rem;
+    width: 0.64rem;
+    height: 0.64rem;
+    display: inline-block;
+    background: url(../images/2x/icon_popWindow_btnclose@2x.png) center center no-repeat;
+    background-size: 100%;
+    transform: translateY(-50%);
+}
+
+
+
+/*错误提示*/
+  .warn_mes{
+    display: none;
+  }
+
+.img100pre{
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.img100pre img{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+
+[v-cloak]{
+    display: none;
+}
+/*新的自动focus6位密码框样式 update by sola at 2017-11-23 end*/
+
+ /*横竖屏切换样式  end*/
+
+@media only screen and (max-width: 325px) {
+	html{font-size:32px !important;}
+
+}
+
+@media only screen and (min-width: 326px) and (max-width: 360px) {
+	html{font-size:36px !important;}
+
+}
+
+@media only screen and (min-width: 361px) and (max-width: 375px) {
+    html{font-size:37.5px!important;}
+}
+
+
+@media only screen and (min-width: 376px) and (max-width: 411px) {
+    html{font-size:37.5px!important;}
+
+}
+@media only screen and (min-width: 412px) and (max-width: 413px){
+	html{font-size:41.2px!important;}
+}
+
+@media only screen and (min-width: 414px) and (max-width: 768px) {
+	html{font-size:41.4px !important;}
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1080px) {
+	html{font-size:41.4px !important;}
+
+}
+
+@media only screen and (min-width: 1081px) and (max-width:1920px) {
+	html{font-size:41.4px !important;}
+}
+
+

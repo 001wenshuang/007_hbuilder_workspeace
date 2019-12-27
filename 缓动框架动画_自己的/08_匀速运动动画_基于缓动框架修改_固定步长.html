@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+	</head>
+	<style type="text/css">
+		.hezi {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			left: 0px;
+			top: 80px;
+			background-color: chartreuse;
+			/*: 0.5;*/
+		}
+	</style>
+
+	<body>
+		<input type="button" id="bt01" value="多属性 移动到200px" />
+		<input type="button" id="bt02" value="多属性 移动到400px" />
+		<input type="button" id="bt03" value="多属性 移动到400px 然后回来" />
+
+
+
+		<div class="hezi">
+
+		</div>
+
+		<script type="text/javascript">
+			//1.写 缓动方法 参数是 要移动的对象   和 移动的目的地
+			//2.使用定时器 每30 毫秒移动一次, 移动的步距 越来越小
+			//3.步距为 盒子与目的地  间距的 1/10
+			//4.让 步距 二次处理 上下取整(多走一点)  步距大于 零的时候上取整 0.3  变成1 小于0 时-0.3  变成-1 下取整
+			//5.让盒子的定位发生移动  等于 和盒子现有的定位距离   
+			//6 当 盒子与于 目的地的间隙 小于 步距的绝对值时  ,就让盒子直接到达目的地  清除定时器
+
+			//1.写 缓动方法 参数是 要移动的对象   和 移动的目的地(优化传递想要控制的属性)
+			//参数移动对象.想要控制的属性 ,移动距离
+
+			//优化
+			function huandong(ele, json,step, fn) {
+
+				//一进来清除以前的定时器
+				clearInterval(ele.timer)
+				//2.使用定时器 每30 毫秒移动一次, 移动的步距 越来越小
+				ele.timer = setInterval(function() {
+
+					var bool = true;
+
+					//3.步距为 盒子与目的地  间距的 1/10
+					//属性  不确定的 使用获取通用属性  值的方法 
+
+					for(var k in json) {
+
+						var leader = parseInt(getStyle(ele, k)) || 0; //没有这个属性的时候就是0   把位置取整了 这是一个 bug
+						//					var step = (target - ele.offsetLeft) / 10;
+						//10 分之一 固定34次到目的地, 多属性的时候 一定是前面的属性先到目的地,后面的属性最后到目的
+//						 step = (json[k] - leader) / 10;
+							//匀速 时 决定步长的正负
+							
+							
+							
+							if(json[k] - leader>=0){
+								step= Math.abs(step)
+							}else{
+								step= -Math.abs(step)
+							}
+
+						//4.让 步距 二次处理 上下取整(多走一点)  步距大于 零的时候上取整 0.3  变成1 小于0 时-0.3  变成-1 下取整
+						step = step > 0 ? Math.ceil(step) : Math.floor(step);
+						//5.让盒子的定位发生移动  等于 和盒子现有的定位距离   
+						ele.style[k] = leader + step + 'px';
+
+						//6 当 盒子与于 目的地的间隙 小于等于 步距的绝对值时  ,就让盒子直接到达目的地  清除定时器
+						//由于是多属性  只要有一个属性没有 到目的地(或者步长没有大于等于到目的地的间隙的时候) 就不能清除定时器
+						//要等待所有的属性 都到达目的地的时候  遍历完了 才清除定期
+						//关闭定时器的时机  就是当 所有 的属性    离目的地的间隙要小于步长时  就直接到达目的地
+
+						if(Math.abs((json[k] - parseInt(getStyle(ele, k)))) <= Math.abs(step)) {
+
+							//离目的地的间隙要小于步长时  就直接到达目的地
+
+							ele.style[k] = json[k] + "px";
+
+						} else { //只要有一个 属性 步长没有大于等于到目的地的间隙的时候就不关闭定时器
+							bool = false;
+						}
+
+					}
+
+					console.log("监测循环的次数:1111")
+					//for循环外
+					if(bool) {
+
+						clearInterval(ele.timer)
+						//添加回调函数
+						if(fn) { //typeof fn =="function"
+
+							fn();
+						}
+
+					}
+
+				}, 30);
+
+			}
+
+			//兼容方法获取元素样式属性   返回的是属性对应的字符串值 带px deng 
+			function getStyle(ele, attr) {
+				if(window.getComputedStyle) {
+					return window.getComputedStyle(ele, null)[attr];
+				}
+				return ele.currentStyle[attr];
+			}
+
+			//绑定点击事件
+			var hezi = document.getElementsByClassName("hezi")[0]
+
+			var bt01 = document.getElementById("bt01");
+			bt01.onclick = function() {
+
+				var json = {
+					"left": 300,
+					"top": 200,
+					"width": 300,
+					"height": 200,
+					"border-radius": 30
+				};
+				huandong(hezi, json,3, function() {
+
+					console.log("5555")
+				})
+			}
+
+			var bt02 = document.getElementById("bt02");
+
+			bt02.onclick = function() {
+				var json = {
+					"left": 40,
+					"top": 400,
+					"width": 500,
+					"height": 500,
+					"border-radius": 60
+				};
+
+				huandong(hezi, json,4, function() {
+
+					console.log("5555")
+				})
+			}
+
+			var bt03 = document.getElementById("bt03");
+
+			bt03.onclick = function() {
+				var json = {
+					"left": 40,
+					"top": 400,
+					"width": 500,
+					"height": 500,
+					"border-radius": 60,
+					
+				};
+				var json02 = {
+					"left": 10,
+					"top": 200,
+					"width": 300,
+					"height": 200,
+					"border-radius": 30
+				};
+				huandong(hezi, json,4, function() {
+
+					huandong(hezi, json02,-4);
+				})
+			}
+		</script>
+	</body>
+
+</html>

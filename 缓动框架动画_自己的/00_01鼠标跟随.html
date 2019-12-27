@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>鼠标跟随</title>
+	</head>
+	
+	<body >
+		<img src="img/img.jpg" style="width: 100px;height:100px;position: absolute;" id="pic"/>
+	</body>
+	<script type="text/javascript">
+		//实现的核心是鼠标移动事件,获取当前鼠标所在页面中 或者 屏幕中的 或者 浏览器中的位置 然后把盒子 移动过去
+		var img_pic=document.getElementById("pic");
+		
+		document.onmousemove=function  (event) {
+			
+			//获取事件对象
+			event=event||window.event;
+			
+//			console.log(event)
+			//获取页面 左边卷曲的距离
+			
+			var leftjuan  = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
+//			console.log(leftjuan)
+			//获取页面头部卷曲的 距离
+			var topjuan = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+//			console.log(topjuan)
+		//获取当前鼠标所在的位置页面 body 的位置
+//		console.log()
+			var pagex=event.pageX||leftjuan+event.clientX;
+			var  pagey=event.pageY||topjuan+event.clientY;
+			
+			//通过绝对定位让图片 跟着移动
+			
+			img_pic.style.left=pagex+"px";
+			img_pic.style.top=pagey+"px";
+			
+		}
+		
+	</script>
+</html>

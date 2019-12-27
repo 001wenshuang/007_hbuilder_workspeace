@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>一串鼠标跟随</title>
+	</head>
+
+	<body>
+
+		<img src="img/img.jpg" style="width: 100px;height:100px;position: absolute;" />
+		<img src="img/img.jpg" style="width: 100px;height:100px;position: absolute;" />
+		<img src="img/img.jpg" style="width: 100px;height:100px;position: absolute;" />
+		<img src="img/img.jpg" style="width: 100px;height:100px;position: absolute;" />
+		<img src="img/img.jpg" style="width: 100px;height:100px;position: absolute;" />
+		<img src="img/img.jpg" style="width: 100px;height:100px;position: absolute;" />
+		<img src="img/img.jpg" style="width: 100px;height:100px;position: absolute;" />
+		<img src="img/img.jpg" style="width: 100px;height:100px;position: absolute;" />
+		<img src="img/img.jpg" style="width: 100px;height:100px;position: absolute;" />
+
+	</body>
+
+	<script type="text/javascript">
+		var imgtag = document.getElementsByTagName("img");
+
+		document.onmousemove = function(event) {
+			//获取事件对象
+			event = event || window.event;
+
+			//只取到第一个,然后  前面的盒子的位置赋值给后一个  让后一个移动到前一个的位置
+			for(var i = imgtag.length - 1; i > 0; i--) {
+				imgtag[i].style.left = imgtag[i - 1].style.left; //最低 把第0 赋值给第一个 所在位置让他向前移动
+				imgtag[i].style.top = imgtag[i - 1].style.top;
+			}
+			//	第0 个盒子 就是鼠标 所在位置
+			imgtag[0].style.left = event.clientX + 'px';
+			imgtag[0].style.top = event.clientY + 'px';
+
+		}
+		
+//	document.onmouseover=function(event){
+//		//获取事件对象
+//			event = event || window.event;
+//			
+//				for(var i = imgtag.length - 1; i >= 0; i--) {
+//				imgtag[i].style.left = event.clientX + 'px';
+//			imgtag[i].style.top = event.clientY + 'px';
+//			}
+//
+//	}
+	</script>
+
+</html>

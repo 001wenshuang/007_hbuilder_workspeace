@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		.item01-inner {
+			width: 175px;
+			height: 175px;
+			background-color: yellow;
+			opacity: 0.5;
+			position: absolute;
+			cursor: move;
+		}
+		.item02{
+			/*background-position-x: 0px;
+			background-position-y: 0px;
+			background-repeat: no-repeat;*/
+		}
+		img{
+			width: 800px;
+			height: 800px;
+			position: absolute;
+			
+		}
+	</style>
+
+	<body>
+		<div class="item01" style="width: 350px;height: 350px;background-image: url(img/001.jpg); border: solid black 1px;">
+			<div class="item01-inner">
+
+			</div>
+
+		</div>
+
+		<div class="item02" style="width: 400px;height: 400px;border: solid black 1px;overflow: hidden; position: relative;">
+			<img src="img/0001.jpg" id="fd" />
+
+		</div>
+		<script type="text/javascript">
+			var divitem01 = document.getElementsByClassName("item01")[0];
+			var divinner = document.getElementsByClassName("item01-inner")[0];
+			var divitem02 = document.getElementsByClassName("item02")[0];
+		var imgbo=	document.getElementById("fd");
+
+			//黄色区域跟随鼠标
+			document.onmousemove = function(event) {
+				//获取事件对象
+				event = event || window.event;
+				//获取鼠标所在的位置
+				//			兼容性写法     鼠标位置=event.pagex||头部卷缩的距离+event.clientX
+
+				var leftjuan = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
+				//			console.log(leftjuan)
+				//获取页面头部卷曲的 距离
+				var topjuan = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+				//			console.log(topjuan)
+				//获取当前鼠标所在的位置页面 body 的位置
+				//		console.log()
+				var pagex = event.pageX || leftjuan + event.clientX;
+				var pagey = event.pageY || topjuan + event.clientY;
+
+				//让鼠标在小方块的中央
+				//那么就要把小方块左 移 上行 盒子的一半
+
+				divinner.style.left = pagex - 175 / 2 + "px";
+				divinner.style.top = pagey - 175 / 2 + "px";
+
+				//限定黄色方块可以移动的区域
+				//1.首先的 得到大盒子 距离边界的距离 上面 和 左边的距离 (黄色方块可以移动的最小坐标)
+				//2. 黄色 方块可以 移动的最大区域就是 加上大盒子的高宽
+				var item01left = divitem01.offsetLeft
+				var item01top = divitem01.offsetTop;
+//				console.log('item01left', item01left)
+//				console.log('item01top', item01top)
+				//求大盒子的 高宽
+				var item01with = divitem01.offsetWidth;
+				var item01height = divitem01.offsetHeight;
+//				console.log('item01with', item01with)
+//				console.log('item01height', item01height)
+
+				//黄色盒子可以移动的最大距离
+				var divinnermovemax_x = item01left + item01with;
+				var divinnermovemax_y = item01top + item01height;
+
+				//x 方向限定
+				//最大限定
+				if(divinner.offsetLeft > (divinnermovemax_x - divinner.offsetWidth)) { //小盒子 左边为边界 减去小盒子的宽度
+
+					divinner.style.left = divinnermovemax_x - divinner.offsetWidth + "px";
+				}
+					//最小限定
+				if(divinner.offsetLeft < item01left) { //
+
+					divinner.style.left = item01left + "px";
+				}
+
+				//y 轴 方向限定
+				//最大限定
+				if(divinner.offsetTop > (divinnermovemax_y - divinner.offsetHeight)) { //小盒子 左边为边界 减去小盒子的宽度
+
+					divinner.style.top = divinnermovemax_y - divinner.offsetHeight + "px";
+				}
+					//最小限定
+				if(divinner.offsetTop < item01top) { //
+
+					divinner.style.top = item01top + "px";
+				}
+
+				//实现 放大图的背景图移动
+				//计算黄色块移动了多少
+				 //黄色块移动的距离=黄色块距离页面距离-外层盒子的距离页面的距离
+				 //x 距离
+				var item01_innermove_juli_x=divinner.offsetLeft-divitem01.offsetLeft;
+//				console.log("item01_innermove_juli_x",item01_innermove_juli_x)
+				//y 距离
+				var item01_innermove_juli_y=divinner.offsetTop-divitem01.offsetTop;
+//				console.log("item01_innermove_juli_y",item01_innermove_juli_y)
+				
+				//放大的大盒子/黄色的小盒子=大盒子移动的距离/小盒子移动的距离
+				//大小盒子放大的比例尺
+				var bili=divitem02.offsetHeight/divinner.offsetHeight;
+				
+//				console.log("bili",bili)
+				
+				//放大镜大盒子移动的距离
+				//x 轴
+				var  divitem02move_juli_x=bili*item01_innermove_juli_x;
+//				console.log("divitem02move_juli_x",divitem02move_juli_x)
+				//y 轴
+				var divitem02move_juli_y=bili*item01_innermove_juli_y;
+//				console.log("divitem02move_juli_y",divitem02move_juli_y)
+				
+				//移动放大镜
+				imgbo.style.left=-divitem02move_juli_x+"px";
+				imgbo.style.top=-divitem02move_juli_y+"px";
+
+			}
+			
+			//鼠标移出这个区域
+			divinner.onmouseout=function(){
+				console.log("鼠标移出")
+				divitem02.style.display="none"
+			}
+			//鼠标移入这个区域
+			divinner.onmouseover=function(){
+				console.log("鼠标移入")
+				divitem02.style.display="block"
+			}
+			
+	
+		</script>
+	</body>
+
+</html>

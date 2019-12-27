@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>旋转木马轮播图</title>
+		<link rel="stylesheet" href="css/css.css" />
+		<!--<script src="js/jquery1.0.0.1.js"></script>-->
+		<script src="js/huandong.js"></script>
+	</head>
+
+	<body>
+		<span id="" style="color: #0000FF;">
+				// 思想 
+		// 1.让所有的 图片 都在 同一位置   然后利用这个json 数组 建立不同目的地
+		// 2. 利用缓动 框架   遍历 json 数组 到不同的目的地
+		// 3.想要实现  旋转   改变目的地 即可   即修改 json 中的顺序  是数组的值不断向前移(或者后移) 那么目的地也就变了 就开始移动了
+		// 4.怎样实现无限 旋转 把数组中的 json 数组的第一个 放到json 数组的最后面去     或者 把json 数组的最后一个放到json数组的最前去
+		</span>
+		<div class="wrap" id="wrap">
+			<div class="slide" id="slide">
+				<ul>
+
+					<li>
+						<a href="#"><img src="img/images/slidepic1.jpg" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/images/slidepic2.jpg" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/images/slidepic3.jpg" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/images/slidepic4.jpg" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/images/slidepic5.jpg" alt="" /></a>
+					</li>
+				</ul>
+
+				<div class="arrow" id="arrow">
+					<a href="javascript:;" class="prev"></a>
+					<a href="javascript:;" class="next"></a>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+	<style type="text/css">
+		.wrap {
+			width: auto;
+			height: auto;
+		}
+		
+		.slide {
+			width: 800px;
+			height: 500px;
+			margin: 60px auto;
+			position: relative;
+		}
+		
+		ul {
+			width: auto;
+			height: auto;
+			overflow: hidden;
+		}
+		
+		img {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+		}
+		
+		.arrow {
+			opacity: 1;
+		}
+		
+		.prev {
+			display: block;
+			width: 76px;
+			height: 112px;
+			position: absolute;
+			left: -300px;
+			top: 230px;
+			background: url(img/images/prev.png) no-repeat;
+			z-index: 99;
+		}
+		
+		.next {
+			display: block;
+			width: 76px;
+			height: 112px;
+			position: absolute;
+			right: -300px;
+			top: 230px;
+			background: url(img/images/next.png) no-repeat;
+			z-index: 99;
+		}
+	</style>
+
+	<script type="text/javascript" charset="utf-8">
+		var arr = [{ //  1
+				width: 400,
+				top: 70,
+				left: -150,
+				opacity: 20,
+				zIndex: 2
+			},
+			{ // 2
+				width: 600,
+				top: 120,
+				left: -200,
+				opacity: 80,
+				zIndex: 3
+			},
+			{ // 3
+				width: 800,
+				top: 100,
+				left: 0,
+				opacity: 100,
+				zIndex: 4
+			},
+			{ // 4
+				width: 600,
+				top: 120,
+				left: 400,
+				opacity: 80,
+				zIndex: 3
+			},
+			{ //5
+				width: 400,
+				top: 70,
+				left: 550,
+				opacity: 20,
+				zIndex: 2
+			}
+		];
+		// 思想 
+		// 1.让所有的 图片 都在 同一位置   然后利用这个json 数组 建立不同目的地
+		// 2. 利用缓动 框架   遍历 json 数组 到不同的目的地
+		// 3.想要实现  旋转   改变目的地 即可   即修改 json 中的顺序  是数组的值不断向前移(或者后移) 那么目的地也就变了 就开始移动了
+		// 4.怎样实现无限 旋转 把数组中的 json 数组的第一个 放到json 数组的最后面去     或者 把json 数组的最后一个放到json数组的最前去
+		var ul_tag = document.getElementsByTagName("ul");
+		var li_tag = document.getElementsByTagName("img");
+		console.log(ul_tag)
+		console.log(li_tag)
+		
+		window.onload = function() {
+			//这一步很关键 
+			for(var i = 0; i < li_tag.length; i++) {
+
+				huandong(li_tag[i], arr[i])
+			}
+		}
+
+		var arrow = document.getElementById("arrow");
+		var slide = document.getElementById("slide");
+		
+		//鼠标移入事件 防止冒泡
+		slide.onmouseenter = function() {
+
+			huandong(arrow, {
+				"opacity": 100
+			})
+		}
+
+		//鼠标移出 事件 防止冒泡
+		slide.onmouseleave = function() {
+
+			huandong(arrow, {
+				"opacity": 0
+			})
+		}
+		
+	var prev=	document.getElementsByClassName("prev")[0];
+	
+	var next=document.getElementsByClassName("next")[0];
+	
+	prev.onclick=function  () {
+		//删除数组的最后一位  并且 返回被 被删的
+		var arr_last=arr.pop();
+		//然后把这个删除的  放到数组的最前面
+		arr.unshift(arr_last);
+		
+			for(var i = 0; i < li_tag.length; i++) {
+
+				huandong(li_tag[i], arr[i])
+			}
+	}
+	
+		next.onclick=function  () {
+		//删除数组的第一位  并且 返回被 被删的
+		var arr_frist=arr.shift();
+		//然后把这个删除的  放到数组的最前面
+		arr.push(arr_frist);
+		
+			for(var i = 0; i < li_tag.length; i++) {
+
+				huandong(li_tag[i], arr[i])
+			}
+	}
+		
+		
+	</script>
+
+</html>
