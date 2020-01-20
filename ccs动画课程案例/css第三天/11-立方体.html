@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title></title>
+		<!--3D CSS rotate中 不管图形面  怎旋转改变 Z 轴永远 垂直于翻转的面  
+			
+			X Y轴  永远基于 浏览器的  横轴 和纵轴
+		-->
+		<style>
+			.box {
+				width: 250px;
+				height: 250px;
+				margin: 0 auto;
+				transform-style: preserve-3d;
+				transition: all 6s;
+				position: relative;
+				top: 200px;
+				animation: gun 8s linear infinite;
+			}
+			
+			@keyframes gun {
+				0% {
+					transform: rotateX(0deg) rotateY(0deg);
+				}
+				100% {
+					transform: rotateX(360deg) rotateY(360deg);
+				}
+			}
+			/*.box:hover {
+				transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+				
+			}*/
+			
+			.box>div {
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				width: 250px;
+				height: 250px;
+				text-align: center;
+				line-height: 250px;
+				font-size: 50px;
+				font-weight: bold;
+				color: rgba(255, 0, 0, 0.6);
+				font-family: "微软雅黑";
+			}
+			
+			.up:nth-child(1) {
+				transform-origin: top;
+				transform: rotateX(-90deg);
+				background-color: rgba(255, 0, 0, 0.3);
+			}
+			
+			.down:nth-child(2) {
+				transform-origin: bottom;
+				transform: rotateX(90deg);
+				background-color: rgba(0, 0, 225, 0.3);
+			}
+			
+			.left:nth-child(3) {
+				/*谷歌坐标系统中左右可能是个反的*/
+				transform-origin: left;
+				transform: rotateY(90deg);
+				background-color: rgba(255, 255, 0, 0.3);
+			}
+			
+			.right:nth-child(4) {
+				/*谷歌坐标系统中左右可能是个反的*/
+				transform-origin: right;
+				transform: rotateY(-90deg);
+				background-color: rgba(150, 100, 30, 0.3);
+			}
+			
+			.forward:nth-child(5) {
+				background-color: rgba(255, 0, 255, 0.3);
+				border-left: solid 2px black;
+				/*Y轴*/
+				border-bottom: solid 2px red;
+				/*X轴*/
+			}
+			
+			.back:nth-child(6) {
+				background-color: rgba(154, 65, 65, 0.3);
+				transform: translateZ(-250px);
+			}
+		</style>
+	</head>
+
+	<body>
+		<h3>3D CSS rotate中 不管图形面  怎旋转改变 Z 轴永远 垂直于翻转的面  
+			
+			X Y轴  永远基于 浏览器的  横轴 和纵轴</h3>
+		<div class="box">
+			<div class="up">上</div>
+			<div class="down">下</div>
+			<div class="left">左</div>
+			<div class="right">右</div>
+			<div class="forward">前</div>
+			<div class="back">后</div>
+		</div>
+
+	</body>
+
+</html>

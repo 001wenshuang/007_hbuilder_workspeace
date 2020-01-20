@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{
+            width: 300px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left:50%;   /*先通过定位 移动到盒子的50% 位置然后再回移 宽度的一半就到盒子中央  居中了了*/
+            top:100px;
+        }
+        div:nth-child(1){
+            margin-left:-150px; /*先通过定位 移动到盒子的50% 位置然后再回移 宽度的一半就到盒子中央  居中了了*/
+            
+        }
+
+        div:nth-child(2){
+            top:300px;
+            /* 水平方向上向左走自己宽度的一半*/
+            /*推荐的写法*/
+            transform:translate(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+                                                                            
+</body>
+</html>

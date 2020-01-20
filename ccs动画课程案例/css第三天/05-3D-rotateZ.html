@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .rotateZ{
+            width: 330px;
+            height: 227px;
+            margin:100px auto;
+    /* 透视 :加给变换的父盒子*/
+            /* 设置的是用户的眼睛距离 平面的距离*/
+            /* 透视效果只是视觉上的呈现，并不是正真的3d*/
+            /* 透视*/
+           
+           /*注意观察旋转的方式*/
+           /*使用透视 就是为实现 近大远小的效果*/
+            perspective: 200px;
+        }
+
+        img{transition:all 1s;}
+
+        .rotateZ:hover img{
+            transform:rotateZ(360deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="rotateZ">
+        <img src="images/z.jpg" alt=""/>
+    </div>
+                                                                            
+</body>
+</html>

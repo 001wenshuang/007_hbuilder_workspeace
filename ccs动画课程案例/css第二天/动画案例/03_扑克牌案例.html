@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				/*background-color: #eee;*/
+			}
+			
+			.box {
+				width: 300px;
+				height: 440px;
+				margin: 100px auto;
+				position: relative;
+			}
+			
+			img {
+				width: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				box-shadow: 0 0 3px 0 #666;
+				transform: rotate(0deg);
+				transition: all 1s;
+				 /* transform-origin：变换中心 默认是 图片几何中心*/
+            /*transform-origin ：水平坐标 垂直坐标  */
+
+            /*transform-origin: 50px 50px;*/
+				transform-origin: bottom center;
+			}
+			
+			div:hover :nth-child(1) {
+				transform: rotate(-25deg);
+			}
+			
+			div:hover :nth-child(2) {
+				transform: rotate(-20deg);
+			}
+			
+			div:hover :nth-child(3) {
+				transform: rotate(-15deg);
+			}
+			
+			div:hover :nth-child(4) {
+				transform: rotate(-10deg);
+			}
+			
+			div:hover :nth-child(5) {
+				transform: rotate(-5deg);
+			}
+			
+			div:hover :nth-child(6) {
+				transform: rotate(0deg);
+			}
+			
+			div:hover :nth-child(7) {
+				transform: rotate(5deg);
+			}
+			
+			div:hover :nth-child(8) {
+				transform: rotate(10deg);
+			}
+			
+			div:hover :nth-child(9){
+				transform: rotate(15deg);
+			}
+			
+			div:hover :nth-child(10) {
+				transform: rotate(20deg);
+			}
+			
+			div:hover :nth-child(11) {
+				transform: rotate(25deg);
+			}
+				div:hover :nth-child(12) {
+				transform: rotate(30deg);
+			}
+				
+		
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			<img src="images/pk1.png" />
+			
+		</div>
+
+	</body>
+
+</html>

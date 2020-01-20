@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+    	
+        .heart{
+            width: 200px;
+            height:300px;
+            /*border: 1px solid #000;*/
+            margin:100px auto;
+            position: relative;
+        /*    background-color: red;*/
+            
+        }
+		/*使用伪元素 处理产生心形*/
+		.heart::before{
+			content: "你好";
+			width: 200px;
+			height: 300px;
+			display: block;
+			background-color: red;
+			transform: rotate(-45deg);
+			/*transform-origin: bottom right;*/
+			position: absolute;
+			left:-50px;
+			top: 0px;
+			border-radius: 100px 100px 0 0;
+			transition: all 2s; 
+		}
+.heart::after{
+			content: "你好";
+			width: 200px;
+			height: 300px;
+			
+			display: block;
+			background-color: red;
+			transform: rotate(45deg) ;
+			/*transform-origin: bottom left;*/
+			position: absolute;
+			left:21px;
+			top: 0px;
+			border-radius: 100px 100px 0 0;
+			transition: all 2s; 
+			
+		}
+body:hover .heart::after{
+	
+	transform: rotate(0deg) ;
+	left: 585px;
+	top: 242px;
+}
+
+body:hover .heart::before{
+	
+	transform: rotate(0deg) ;
+	left: -285px;
+	top: -152px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="heart">
+
+    </div>
+                                                                            
+</body>
+</html>

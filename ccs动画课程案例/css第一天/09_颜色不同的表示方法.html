@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .out{
+            width: 400px;
+            height: 400px;
+            /*Hue、Saturation、Lightness、Alpha即HSLA
+R、G、B 取值范围0~255
+H 色调 取值范围0~360，0/360表示红色、120表示绿色、240表示蓝色
+S 饱和度 取值范围0%~100%
+L 亮度 取值范围0%~100%
+A 透明度 取值范围0~1
+
+网上有一个色盘
+* 
+* */
+
+            background-color:hsla(240,100%,50%,0.4);
+            margin:100px auto;
+            border: 1px solid #000;
+        }
+
+        .in{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            margin:100px auto;
+
+        }
+
+        .other{
+            width: 300px;
+            height: 300px;
+             rgba(255,0,0,0.1);
+             
+/* RGBA是代表Red（红色） Green（绿色） Blue（蓝色）和 Alpha的色彩空间。虽然它有的时候被描述为一个颜色空间
+*/
+            border: 30px solid rgba(0,255,0,0.3);
+            font-size:50px;
+            font-family:"Microsoft Yahei";
+            background-color: rgba(255,0,0,0.3);
+            color:rgba(0,0,255,0.4);
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="out">
+    <div class="in"></div>
+</div>
+
+    <div class="other">
+        ABCD
+    </div>
+
+</body>
+</html>

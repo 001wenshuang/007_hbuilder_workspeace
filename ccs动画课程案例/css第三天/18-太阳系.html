@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			/*宇宙体系的旋转思想  大圆环旋转365 度 (圆环是个div), 圆环上追affter befor  里面的div也会跟着旋转
+			 * 
+			 * 剧中 时最好不要使用 transform:  的方式居中 后面使用 动画是会将transform: 的位移居中样式给清除掉
+			 * 
+			 *  */
+			
+			body {
+				background: #080e24 url(images/bg.jpg) repeat;
+				
+				
+			
+			}
+			
+			.df{
+				position: relative;
+				width: 840px;
+				height: 840px;
+				margin: 0px auto;
+				
+			}
+		
+			
+			.sun {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background-color: orange;
+				position: absolute;
+				left: 395px;
+				top: 395px;
+				
+			
+				  animation: zhuang 2s linear infinite;
+			}
+			/*只要圆盘运动 圆盘上绑定的 地球 就会跟着运动*/
+			
+			/*地球轨迹*/
+			.earth {
+				width: 200px;
+				height: 200px;
+				border: solid 2px rgba(255, 255, 255, 0.6);
+				position: absolute;
+				left: 320px;
+				top: 320px;
+				
+				border-radius: 50%;
+			
+				  animation: zhuang 6s linear infinite;
+			}
+			
+			/*地球*/
+			.earth::before {
+				content: "";
+				width: 35px;
+				height: 35px;
+				display: block;
+				border-radius: 50%;
+				background-color: blue;
+				position: absolute;
+				left: 15px;
+				top: 15px;
+			}
+			
+			.moon {
+				width: 80px;
+				height: 80px;
+				border: solid 2px rgba(255, 255, 255, 0.3);
+				position: absolute;
+				left: -10px;
+				top: -10px;
+				border-radius: 50%;
+				transform-origin: center center;
+				  animation: zhuang 7s linear infinite;
+			}
+			
+			.moon::before {
+				content: "";
+				width: 20px;
+				height: 20px;
+				display: block;
+				border-radius: 50%;
+				background-color: gainsboro;
+				position: absolute;
+				left: -6px;
+				top: 15px;
+			}
+			
+			.mars {
+				width: 300px;
+				height: 300px;
+				border: solid 2px rgba(255, 255, 255, 0.6);
+				position: absolute;
+				left: 270px;
+				top: 270px;
+				
+				border-radius: 50%;
+				transform-origin: center center;
+				 animation: zhuang 10s linear infinite;
+			}
+			
+			.mars::before {
+				content: "";
+				width: 30px;
+				height: 30px;
+				display: block;
+				border-radius: 50%;
+				background-color: #FFC0CB;
+				position: absolute;
+				left: 25px;
+				top: 25px;
+			}
+			
+			.venus {
+				width: 400px;
+				height: 400px;
+				border: solid 2px rgba(255, 255, 255, 0.6);
+				position: absolute;
+				left: 220px;
+				top: 220px;
+			
+				border-radius: 50%;
+				transform-origin: center center;
+				 animation: zhuang 12s linear infinite;
+			}
+			
+			.venus::before {
+				content: "";
+				width: 25px;
+				height: 25px;
+				display: block;
+				border-radius: 50%;
+				background-color: greenyellow;
+				position: absolute;
+				left: 43px;
+				top: 43px;
+			}
+			
+			@keyframes zhuang {
+				0% {
+					transform: rotate(0deg) ;
+				}
+				100% {
+					transform: rotate(360deg) ;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="df">
+			<div class="sun"></div>
+		<div class="earth">
+			<div class="moon"></div>
+
+		</div>
+		<div class="mars"></div>
+		<div class="venus"></div>
+		</div>
+		
+
+	</body>
+
+</html>

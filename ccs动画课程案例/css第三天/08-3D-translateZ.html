@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            /* 透视*/
+            /*使用透视 就是为实现 近大远小的视觉效果*/
+            perspective: 600px;
+        }
+        .box{
+            width: 250px;
+            height: 250px;
+            background: green;
+            transition:all 1s;
+            margin:200px auto
+        }
+
+        .box:hover{
+            /* translateZ必须配合透视来使用*/
+           transform:translateZ(400px);
+            perspective: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+
+    </div>
+                                                                            
+</body>
+</html>

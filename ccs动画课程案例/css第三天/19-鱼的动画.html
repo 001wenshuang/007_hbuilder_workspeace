@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            background-color: lightblue;
+        }
+		.fishbox{
+			height: 270px;
+			width: 509px;
+			
+			overflow: hidden;
+			
+				animation: youzhou 12s   infinite normal ;
+		}
+		.fish{
+			height: 3240px;
+			width: 509px;
+			background: url(images/shark1.png) left top no-repeat ;
+			transform-origin: top; 
+			animation: yudong 0.8s   infinite normal steps(8);
+			/*9到12步是被击中*/
+			
+			/*infinite 无数次*/
+			    /*animation:yudong 5s steps(12) infinite;*/
+			  /* animation-direction:alternate;*/
+
+		}
+		
+		@keyframes yudong{
+			
+			0%{
+				transform: translateY(0px);
+			}
+			100%{
+				transform: translateY(-2160px);
+			}
+		}
+		
+		@keyframes youzhou{
+			0%{
+				transform: translateX(0px) translateY(0px);
+			}
+			25%{
+					transform: translateX(500px) translateY(0px) rotate(0deg);
+			}
+			
+			50%{
+				transform: translateX(500px) translateY(500px) rotate(90deg);
+			}
+			
+			75%{
+				transform: translateX(0px) translateY(500px) rotate(180deg);
+			}
+		
+			100%{
+				transform: translateX(0px) translateY(0px) rotate(270deg) ;
+			}
+		}
+		
+    </style>
+</head>
+<body>
+    <div class="fishbox">
+        <div class="fish"></div>
+    </div>
+	<div class="sharkbox">
+		 <div class="shark"></div>
+	</div>
+   
+
+                                                                            
+</body>
+</html>
