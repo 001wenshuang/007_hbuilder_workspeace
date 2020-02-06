@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		video{
+			width: 1000px;
+			height: 550px;
+			margin: 0;
+		}
+	</style>
+	<body>
+		<video src="video/fun.mp4"></video>
+		<button id="ting">暂停</button>
+		<button id="bo">播放</button>
+		<script type="text/javascript">
+			//获取播放器对象
+		var video=	document.getElementsByTagName("video")[0];
+		var ting =document.getElementById("ting");
+		var bo=	document.getElementById("bo")
+		
+		bo.onclick=function(){
+			//视频播放
+			video.play();
+			
+					//全屏 
+		 video.webkitRequestFullScreen();
+		}
+		ting.onclick=function () {
+			//视频停止播放
+			video.pause();
+		}
+		
+		
+		//播放时间更新 事件
+		video.ontimeupdate=function(){
+			//当前视频播放的进度   以秒计算
+			console.log("当前视频已经播放了的时间长度:",video.currentTime)
+			
+		}
+//		当浏览器可以播放音频/视频时
+		video.oncanplay=function () {
+			//当前视频的长度
+		console.log("当前视频播放的总长度:",video.duration)
+	
+		 //当前视频播放速度
+		 console.log("当前视频播放速度:",video.playbackRate)
+		 //设置播放速度
+		 video.playbackRate=2;
+		 console.log("当前视频播放速度:",video.playbackRate)
+		
+		}
+		</script>
+	</body>
+</html>

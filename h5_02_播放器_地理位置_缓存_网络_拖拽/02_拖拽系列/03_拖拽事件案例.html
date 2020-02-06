@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.box1,
+		.box2 {
+			width: 400px;
+			height: 400px;
+			border: 1px solid #000;
+		}
+		
+		.box1 div,
+		.box2 div {
+			width: 80px;
+			width: 97px;
+			height: 97px;
+			background-color: red;
+			border-radius: 50%;
+			float: left;
+			border: 1px solid #000;
+			text-align: center;
+			line-height: 100px;
+		}
+		
+		.box2 {
+			position: absolute;
+			left: 600px;
+			top: 100px;
+		}
+	</style>
+
+	<body>
+		<div class="box1">
+			<div draggable="true">1</div>
+			<div draggable="true">2</div>
+			<div draggable="true">3</div>
+			<div draggable="true">4</div>
+			<div draggable="true">5</div>
+			<div draggable="true">6</div>
+			<div draggable="true">7</div>
+			<div draggable="true">8</div>
+		</div>
+		<div class="box2">
+
+		</div>
+	</body>
+	<script type="text/javascript">
+		var box1 = document.querySelector(".box1")
+		var box2 = document.querySelector(".box2")
+		var boxs = document.querySelectorAll(".box1 div")
+		var temp = null;
+		//循环跟boxs 中的对象绑定事件 拖拽开始事件 
+		for(var i = 0; i < boxs.length; i++) {
+			boxs[i].addEventListener("dragstart", function() {
+				//拖拽哪一个元素就把哪一个 添加到中间变量中temp
+				temp = this;
+				console.log("dff")
+			})
+		}
+
+		//当拖拽到目的元素上松开鼠标时 box2 添加这个元素  box1中删除这个元素
+		//但是 drop 事件的执行 要阻止目标元素中的默认事件 ,当拖拽到到目标元素中时 dragover 中存在默认事件 要阻止默认事件
+		//
+		box2.addEventListener("dragover", function(e) {
+			e.preventDefault();
+		})
+		box2.addEventListener("drop", function() {
+
+			console.log(temp)
+			box2.appendChild(temp);
+
+			temp = null;
+		})
+	</script>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            background-color: green;
+        }
+    </style>
+	<body>
+		
+		  <div class="box" draggable="true"></div>
+		  <script type="text/javascript">
+		var box=  	document.querySelector(".box");
+		//拖拽开始
+		 box.ondragstart=function () {
+		 	console.log("拖拽开始了........")
+		 }
+		 //拖拽结束
+		 box.ondragend=function () {
+		 	console.log("拖拽结束........")
+		 }
+		//  拖拽离开 :鼠标拖拽时离开被拖拽的元素是触发
+		box.ondragleave=function () {
+			console.log("鼠标离开正在拖拽的元素........")
+		}
+		//拖拽中
+		box.ondrag=function () {
+			console.log("正在拖拽........")
+		}
+		  </script>
+	</body>
+</html>

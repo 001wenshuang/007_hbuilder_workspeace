@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<h1>获取地理位置  要使用Edge 浏览器 ie 的新版本</h1>
+		<script>
+			/*navigator 导航*/
+			//geolocation: 地理定位
+			//        window.navigator.geolocation
+			//        兼容处理
+
+			if(navigator.geolocation) {
+				//       如果支持，获取用户地理信息
+
+				//            successCallback 当获取用户位置成功的回调函数
+				//            errorCallback 当获取用户位置失败的回调函数
+
+				navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+			} else {
+				debugger
+				console.log('sorry,你的浏览器不支持地理定位');
+			}
+			
+			
+			// 获取地理位置成功的回调函数
+			function successCallback(position) {
+				//            获取用户当前的经纬度
+				//            coords坐标
+				//            纬度latitude
+				var wd = position.coords.latitude;
+				//            经度longitude
+				var jd = position.coords.longitude;
+
+				console.log("获取用户位置成功！");
+				console.log(wd + '----------------' + jd);
+				alert("纬度:"+wd)
+				
+				alert("经度:"+jd)
+				//          40.05867366972477----------------116.33668634275229
+//				29.702544865238582----------------112.29020620027201
+
+				//            谷歌地图：40.0601398850,116.3434224706
+				//            百度地图：40.0658210000,116.3500430000
+				//            腾讯高德：40.0601486487,116.3434373643
+				
+				
+				
+//				谷歌地图：29.7257952700,112.3192581400
+//百度地图：29.7321303600,112.3256666600
+//腾讯高德：29.7258000000,112.3192700000
+//谷歌地球：29.7283294200,112.3135504000
+//北纬N29°43′41.99″ 东经E112°18′48.78″
+//
+//靠近：湖北省荆州市石首市大道167号
+//周边：高陵镇
+//参考：湖北省荆州市石首市高陵镇高陵岗
+			}
+			// 获取地理位置失败的回调函数
+			function errorCallback(error) {
+				console.log(error);
+				console.log('获取用户位置失败！')
+			}
+		</script>
+	</body>
+
+</html>
